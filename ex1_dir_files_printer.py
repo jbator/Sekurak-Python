@@ -5,7 +5,7 @@ from pathlib import Path as pathlib_path
 
 # read directory from program first argument
 if len(sys.argv) != 2:
-    sys.exit("Usage: python3 dir_files_printer.py <path>")
+    sys.exit("Usage: python3 ex1_dir_files_printer.py <path>")
 
 path = sys.argv[1]
 
@@ -32,6 +32,7 @@ def list_files_2(directory):
         print(f"{file}")
 
 def list_files_3(directory, level):
+    # local function variables
     #print(locals())
     for file in os.listdir(directory):
         full_path = os.path.join(directory, file)
