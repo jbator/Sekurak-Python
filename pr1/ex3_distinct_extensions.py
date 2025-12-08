@@ -21,7 +21,7 @@ for path, dirs, files in os.walk(path):
         _, ext = os.path.splitext(file)
         # when extension is not empty add to unique set
         if ext != "":
-            extensions.add(ext)
+            extensions.add(ext.lower())
 
 # print extensions
 for ext in extensions:
