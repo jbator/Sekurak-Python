@@ -1,3 +1,7 @@
 /.venv/
 .idea
 /pr1/.venv/
+/pr1/lib64/
+/pr1/lib/
+/pr1/include/
+/pr1/bin/
