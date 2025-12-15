@@ -2,6 +2,8 @@ import os
 import sys
 from time import sleep
 from datetime import datetime
+from watchdog.events import FileModifiedEvent, FileSystemEventHandler
+from watchdog.observers import Observer
 
 INTERVAL = 1
 
@@ -24,6 +26,13 @@ except ValueError as exception:
 
 cache = {}
 
+class MyEventHandler(FileSystemEventHandler):
+    def on_any_event(self, event: FileModifiedEvent)->None:
+        if event.event_type == 'modified' and not event.is_directory:
+            #if isinstance(event, FileModifiedEvent) and not event.is_directory:
+            stats = os.stat(event.src_path)
+            print(event.src_path + ': ', stats.st_mtime)
+
 # scan dir files for mtime changes using os walk and files stats checks
 def active_polling(directory):
     while True:
@@ -44,8 +53,16 @@ def active_polling(directory):
         sleep(INTERVAL)
 
 def watchdog(directory):
-    while True:
-        sleep(INTERVAL)
+    event_handler = MyEventHandler()
+    observer = Observer()
+    observer.schedule(event_handler, directory, recursive=True)
+    observer.start()
+    try:
+        while True:
+            sleep(INTERVAL)
+    finally:
+        observer.stop()
+        observer.join()
 
 
 if version == 2:
