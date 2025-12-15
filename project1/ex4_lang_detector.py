@@ -4,7 +4,7 @@ import re
 from pygments.lexers import guess_lexer
 
 if len(sys.argv) != 2:
-    sys.exit("Usage: python3 ex1_dir_files_printer.py <path>")
+    sys.exit("Usage: python3 ex4_lang_detector.py <path>")
 
 path = sys.argv[1]
 
