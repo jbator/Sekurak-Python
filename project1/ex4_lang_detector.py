@@ -79,6 +79,17 @@ def detect_lang_pygments(file_path):
         pass
     return None
 
+def detect_main(user_method):
+    current_lang = None
+    match user_method:
+        case 2:
+            current_lang = detect_lang_regex(full_path)
+        case 3:
+            current_lang = detect_lang_pygments(full_path)
+        case _:
+            current_lang = detect_lang(full_path)
+    return current_lang
+
 method = input_detecting_method()
 
 # detected languages
@@ -90,13 +101,7 @@ for root, dirs, files in os.walk(path):
         full_path = os.path.join(root, file)
         is_dir = os.path.isdir(full_path)
         if not is_dir:
-            match method:
-                case 2:
-                    lang = detect_lang_regex(full_path)
-                case 3:
-                    lang = detect_lang_pygments(full_path)
-                case _:
-                    lang = detect_lang(full_path)
+            lang = detect_main(method)
             if lang and not lang in languages:
                 print(f"Detected language: {lang} ({full_path})")
                 languages.add(lang)
