@@ -2,7 +2,6 @@ import sys
 import os
 from pathlib import Path as pathlib_path
 
-
 # read directory from program first argument
 if len(sys.argv) != 2:
     sys.exit("Usage: python3 ex1_dir_files_printer.py <path>")
